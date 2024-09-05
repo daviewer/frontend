@@ -1,0 +1,60 @@
+/* 기본 스타일 초기화 */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: #333;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* 배너 스타일 */
+.banner {
+    background-image: url('../images/banner-image.png'); /* 배너에 사용할 이미지 경로 */
+    background-size: cover; /* 이미지가 배너를 덮도록 크기 조절 */
+    background-position: center; /* 이미지가 배너의 중앙에 위치하도록 설정 */
+    color: white;
+    text-align: center;
+    padding: 120px 0; /* 배너의 위아래 여백 */
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+/* 메인 콘텐츠 스타일 */
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+select {
+    width: 200px;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
