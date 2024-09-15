@@ -18,6 +18,8 @@ function createWindow() {
 
     // 메뉴 설정
     setupMenu(mainWindow);  // setupMenu로 호출
+    mainWindow.webContents.openDevTools(); // 이 줄 추가
+
 
     mainWindow.loadFile('src/main/views/index.html').then(() => {
         openProjectDirectoryDialog(mainWindow);
