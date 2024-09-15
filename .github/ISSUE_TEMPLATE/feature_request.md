@@ -1,5 +1,5 @@
 ---
-name: Feature request
+name: 플랫
 about: Suggest an idea for this project
 title: "[FEATURE] "
 labels: feature

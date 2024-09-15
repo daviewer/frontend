@@ -6,8 +6,8 @@ const { openProjectDirectoryDialog } = require('./dialog');
 // window 생성
 function createWindow() {
     let mainWindow = new BrowserWindow({
-        width: 800,
-        height: 700,
+        width: 600,
+        height: 450,
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
             nodeIntegration: true,
@@ -17,8 +17,7 @@ function createWindow() {
     });
 
     // 메뉴 설정
-    setupMenu(mainWindow);
-    mainWindow.webContents.openDevTools();
+    // setupMenu(mainWindow);
 
     mainWindow.loadFile('src/main/views/index.html').then(() => {
         openProjectDirectoryDialog(mainWindow);

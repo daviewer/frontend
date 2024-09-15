@@ -17,7 +17,7 @@ function setupMenu(mainWindow) {
         {
             label: 'Help',
             submenu: [
-                { role: 'about' }
+                { label: 'version', role: 'about' }
             ]
         }
     ]);

@@ -20,7 +20,11 @@ function fetchBranches(projectPath) {
                 console.error(`Error fetching branches: ${stderr}`);
                 reject(stderr);
             } else {
-                const branches = stdout.split('\n').map(branch => branch.trim()).filter(branch => branch);
+                // 후처리: `->`가 포함된 라인 제거
+                const branches = stdout
+                    .split('\n')
+                    .map(branch => branch.trim())
+                    .filter(branch => branch && !branch.includes('->')); // `->` 포함된 라인 필터링
                 resolve(branches);
             }
         });
