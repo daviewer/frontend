@@ -1,6 +1,6 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
-const { setupMenu } = require('./menu');  // setupMenu로 함수 호출
+const { setupMenu } = require('./menu');
 const { openProjectDirectoryDialog } = require('./dialog');
 
 // window 생성
@@ -17,9 +17,8 @@ function createWindow() {
     });
 
     // 메뉴 설정
-    setupMenu(mainWindow);  // setupMenu로 호출
-    mainWindow.webContents.openDevTools(); // 이 줄 추가
-
+    setupMenu(mainWindow);
+    mainWindow.webContents.openDevTools();
 
     mainWindow.loadFile('src/main/views/index.html').then(() => {
         openProjectDirectoryDialog(mainWindow);
