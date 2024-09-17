@@ -31,6 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (sourceBranch && targetBranch) {
                     try {
+                        // 로딩 창 열기
+                        ipcRenderer.send('show-loading-window');
+
                         const diffFilePath = await ipcRenderer.invoke('create-diff-file', projectPath, sourceBranch, targetBranch);
                         console.log(`Diff file created successfully, path: ${diffFilePath}`);
 
@@ -42,7 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         formData.append('diff-file', new File([file], fileName));
 
                         const parameter = { sourceBranch, targetBranch };
-                        // formData.append('param', JSON.stringify(parameter));
                         formData.append('param', new Blob([JSON.stringify(parameter)], { type: 'application/json' }));
 
                         const response = await axios.post('http://localhost:8080/v1/diff-analysis/submit', formData, {
@@ -53,14 +55,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         const { code, message, body } = response.data;
 
-                        const newWindow = window.open('', 'API Response', 'width=1200,height=800');
+                        // 로딩 창 닫기
+                        ipcRenderer.send('close-loading-window');
+
+                        const newWindow = window.open('', 'API Response', 'width=1000,height=800');
                         if (code === 200) {
-                            newWindow.document.write(`<h2>Result: Success</h2><pre>${body}</pre>`);
+                            newWindow.document.write(`<h2>분석결과</h2><pre>${body}</pre>`);
                         } else {
-                            newWindow.document.write(`<h2>Error</h2><p>${message}</p>`);
+                            newWindow.document.write(`<h2>오류발생</h2><p>${message}</p>`);
                         }
                     } catch (error) {
                         console.error(`Error during diff file creation or API call: ${error}`);
+
+                        // 에러 발생 시 로딩 창 닫기
+                        ipcRenderer.send('close-loading-window');
+
                         alert(`Error: ${error}`);
                     }
                 } else {
@@ -72,4 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
             alert(`Error fetching branches: ${error}`);
         }
     });
+});
+document.getElementById('close-btn').addEventListener('click', () => {
+    require('electron').ipcRenderer.send('close-window');
 });

@@ -1,9 +1,13 @@
+body, html {
+    font-family: 'neodgm', sans-serif;
+}
+
 /* 기본 스타일 초기화 */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
     color: white;
-    background-color: #008081;
+    background-color: #200840;
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -12,7 +16,7 @@ body {
 
 /* 배너 스타일 */
 .banner {
-    background-image: url('../images/banner-image.png'); /* 배너에 사용할 이미지 경로 */
+    /*background-image: url('../images/banner-image.png'); !* 배너에 사용할 이미지 경로 *!*/
     background-size: cover; /* 이미지가 배너를 덮도록 크기 조절 */
     background-position: center; /* 이미지가 배너의 중앙에 위치하도록 설정 */
     color: white;
@@ -27,23 +31,14 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    font-family: 'neodgm', sans-serif;
     color: white;
-    font-size: 10px;
+    font-size: 25px;
     align-items: center;
     flex-grow: 1;
     padding: 20px;
     box-sizing: border-box;
     text-align: center;
-}
-
-/* 공통 스타일 */
-.icon {
-    width: 40px;
-    height: 40px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    display: inline-block;
-    vertical-align: middle;
 }
 
 /* source 브랜치 아이콘 */
@@ -56,10 +51,17 @@ body {
     background-image: url('../images/branch_icon.jpg');
 }
 
+/* 버튼 컨테이너 */
+.button-container {
+    display: flex;
+    gap: 10px; /* 버튼 사이 간격 */
+    margin-top: 20px;
+}
+
 /* 분석 시작 버튼 스타일 */
 .btn-review {
-    width: 120px; /* 버튼의 너비를 설정 */
-    height: 60px; /* 버튼의 높이를 설정 */
+    width: 95px; /* 버튼의 너비를 설정 */
+    height: 40px; /* 버튼의 높이를 설정 */
     background-image: url('../images/start_button.jpg'); /* 버튼 이미지 경로 */
     background-size: cover; /* 버튼 이미지가 버튼 영역을 완전히 덮도록 설정 */
     border: none; /* 버튼의 기본 테두리 제거 */
@@ -67,6 +69,22 @@ body {
     outline: none; /* 포커스 시 버튼 테두리 제거 */
 }
 
+/* 닫기 버튼 스타일 */
+.btn-close {
+    width: 95px; /* 버튼의 너비를 설정 */
+    height: 40px; /* 버튼의 높이를 설정 */
+    background-color: #f44336; /* 배경색 설정 */
+    color: white; /* 텍스트 색상 설정 */
+    border: none; /* 기본 테두리 제거 */
+    border-radius: 5px; /* 버튼 모서리 둥글게 설정 */
+    font-size: 16px; /* 폰트 크기 설정 */
+    cursor: pointer; /* 버튼을 클릭할 수 있는 손 모양으로 변경 */
+    outline: none; /* 포커스 시 버튼 테두리 제거 */
+}
+
+.btn-close:hover {
+    background-color: #d32f2f; /* 버튼 호버 시 배경색 변경 */
+}
 
 label {
     display: block;
@@ -80,15 +98,9 @@ select {
     box-sizing: border-box;
 }
 
-button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #45a049;
+@font-face {
+    font-family: 'neodgm';
+    src: url('../fonts/neodgm.woff') format("woff");
+    font-weight: normal;
+    font-style: normal;
 }

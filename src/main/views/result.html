@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>결과창</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background: #200840;
+            font-family: 'neodgm', sans-serif-serif; /* 폰트 적용 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            overflow-y: auto; /* 세로 스크롤 활성화 */
+            overflow-x: hidden; /* 가로 스크롤 비활성화 */
+        }
+
+        .content {
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .btn-close {
+            width: 100%;
+            background-color: #007BFF;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            cursor: pointer;
+            border: none;
+            font-size: 18px;
+            margin-bottom: 0;
+        }
+
+        .btn-close:hover {
+            background-color: #0056b3;
+        }
+
+        pre {
+            white-space: pre-wrap; /* 텍스트가 창 너비를 넘지 않도록 개행 */
+        }
+    </style>
+</head>
+<body>
+<div class="content">
+    <h2>분석결과</h2>
+    <pre id="result"></pre>
+</div>
+<button class="close-btn" id="closeBtn">닫기</button>
+
+<script>
+    const { ipcRenderer } = require('electron');
+
+    ipcRenderer.on('result-data', (event, { code, message, body }) => {
+        const resultElement = document.getElementById('result');
+        if (code === 200) {
+            resultElement.textContent = body;
+        } else {
+            resultElement.textContent = `오류 발생: ${message}`;
+        }
+    });
+
+    document.getElementById('closeBtn').addEventListener('click', () => {
+        window.close(); // 창 닫기
+    });
+</script>
+</body>
+</html>

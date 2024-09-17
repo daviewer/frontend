@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const { setupMenu } = require('./menu');
 const { openProjectDirectoryDialog } = require('./dialog');
@@ -7,7 +7,8 @@ const { openProjectDirectoryDialog } = require('./dialog');
 function createWindow() {
     let mainWindow = new BrowserWindow({
         width: 600,
-        height: 450,
+        height: 380,
+        frame: false, // 프레임리스 설정
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
             nodeIntegration: true,
@@ -17,16 +18,52 @@ function createWindow() {
     });
 
     // 메뉴 설정
-    // setupMenu(mainWindow);
+    setupMenu(mainWindow);
 
     mainWindow.loadFile('src/main/views/index.html').then(() => {
         openProjectDirectoryDialog(mainWindow);
+    });
+
+    // 닫기 버튼이 눌렸을 때 창 닫기
+    ipcMain.on('close-window', () => {
+        mainWindow.close();
     });
 
     mainWindow.on('closed', () => {
         mainWindow = null;
     });
 }
+
+function createLoadingWindow() {
+    loadingWindow = new BrowserWindow({
+        width: 286,
+        height: 179,
+        transparent: true,
+        frame: false,
+        alwaysOnTop: true,
+        resizable: false,
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false,
+            enableRemoteModule: true
+        }
+    });
+
+    loadingWindow.loadFile('src/main/views/loader.html');
+}
+
+// IPC로 로딩 창 열기
+ipcMain.on('show-loading-window', () => {
+    createLoadingWindow();
+});
+
+// IPC로 로딩 창 닫기
+ipcMain.on('close-loading-window', () => {
+    if (loadingWindow) {
+        loadingWindow.close();
+        loadingWindow = null;
+    }
+});
 
 app.whenReady().then(() => {
     createWindow();

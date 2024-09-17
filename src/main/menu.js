@@ -13,13 +13,13 @@ function setupMenu(mainWindow) {
                 { type: 'separator' },
                 { role: 'quit' }
             ]
-        },
-        {
-            label: 'Help',
-            submenu: [
-                { label: 'version', role: 'about' }
-            ]
         }
+        // ,{
+        //     label: 'Help',
+        //     submenu: [
+        //         { label: 'version', role: 'about' }
+        //     ]
+        // }
     ]);
 
     Menu.setApplicationMenu(menu);
