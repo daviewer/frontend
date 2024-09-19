@@ -52,6 +52,9 @@ function createLoadingWindow() {
 }
 
 function setupDockIcon() {
+    if (process.platform !== 'darwin') {
+        return;
+    }
     const nativeImage = require('electron').nativeImage;
     const image = nativeImage.createFromPath(path.join(__dirname, '../renderer/resources/images/logo.png'));
     app.dock.setIcon(image);
