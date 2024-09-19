@@ -14,17 +14,16 @@ function createWindow() {
             nodeIntegration: true,
             contextIsolation: false,
         },
-        icon: path.join(__dirname, '../renderer/resources/images', 'logo.png')
+        icon: path.join(__dirname, '../renderer/resources/images/logo.png'),
     });
-
-    // 메뉴 설정
+    // mac os dock & 메뉴 설정
+    setupDockIcon();
     setupMenu(mainWindow);
 
     mainWindow.loadFile('src/main/views/index.html').then(() => {
         openProjectDirectoryDialog(mainWindow);
     });
 
-    // 닫기 버튼이 눌렸을 때 창 닫기
     ipcMain.on('close-window', () => {
         mainWindow.close();
     });
@@ -45,11 +44,17 @@ function createLoadingWindow() {
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
-            enableRemoteModule: true
-        }
+            enableRemoteModule: true,
+        },
     });
 
     loadingWindow.loadFile('src/main/views/loader.html');
+}
+
+function setupDockIcon() {
+    const nativeImage = require('electron').nativeImage;
+    const image = nativeImage.createFromPath(path.join(__dirname, '../renderer/resources/images/logo.png'));
+    app.dock.setIcon(image);
 }
 
 // IPC로 로딩 창 열기
